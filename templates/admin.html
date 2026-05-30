@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+</style>
+
 <head>
     <meta charset="UTF-8">
     <title>VerdaCore - Admin Panel</title>
 </head>
 
-<body style="font-family: Arial, sans-serif; padding: 20px; background-color: #343a40; color: white;">
+<body style="font-family: Lora, sans-serif; padding: 20px; background-color: #343a40; color: white;">
 
     <div style="background-color: #212529; padding: 20px; border-radius: 8px;">
-        <h1 style="color: #ffc107;">🛡️ Admin Dashboard: {{ username }}</h1>
+        <h1 style="color: #5A9F4D;">🛡️ Admin Dashboard: {{ username }}</h1>
         <p>System Security and User Management</p>
         <a href="/logout"
             style="padding: 8px 15px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 5px;">Secure
@@ -18,7 +22,7 @@
 
     <div style="display: flex; gap: 20px; margin-top: 20px;">
 
-        <div style="background-color: white; color: black; padding: 20px; border-radius: 8px; flex: 1;">
+        <div style="background-color: #FFFFED; color: black; padding: 20px; border-radius: 8px; flex: 1;">
             <h3 style="color: #0056b3;">👥 Registered Users</h3>
             <table style="width: 100%; text-align: left; border-collapse: collapse;">
                 <tr style="border-bottom: 2px solid #ccc;">
@@ -39,7 +43,7 @@
         </div>
 
         <div
-            style="background-color: white; color: black; padding: 20px; border-radius: 8px; flex: 1; border: 2px solid #dc3545;">
+            style="background-color: #FFFFED; color: black; padding: 20px; border-radius: 8px; flex: 1; border: 2px solid #dc3545;">
             <h3 style="color: #dc3545;">🚨 Admin Audit Logs</h3>
             <ul style="list-style: none; padding: 0;">
                 {% for log in logs %}
