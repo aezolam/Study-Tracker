@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+</style>
+
 <head>
     <meta charset="UTF-8">
     <title>VerdaCore - Dashboard</title>
 </head>
 
-<body style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f7f6;">
+<body style="font-family: Lora, sans-serif; padding: 20px; background-color: #f4f7f6;">
 
     <h1 style="color: #2d5a27;">Welcome to your Dashboard, {{ username }}!</h1>
     <a href="/logout"
@@ -15,7 +19,7 @@
 
     <div style="display: flex; gap: 20px;">
 
-        <div style="background-color: white; padding: 20px; border-radius: 8px; border: 1px solid #ccc; flex: 1;">
+        <div style="background-color: #FFFFED; padding: 20px; border-radius: 8px; border: 1px solid #ccc; flex: 1;">
             <h3>📝 Create Note</h3>
             <form method="POST">
                 <input type="text" name="note_title" placeholder="Title" required
@@ -33,7 +37,7 @@
         </div>
 
         <div
-            style="background-color: white; padding: 20px; border-radius: 8px; border: 1px solid #0056b3; flex: 1; text-align: center;">
+            style="background-color: #FFFFED; padding: 20px; border-radius: 8px; border: 1px solid #0056b3; flex: 1; text-align: center;">
             <h3 style="color: #0056b3;">⏱️ Focus Timer</h3>
             <h1 id="display" style="font-size: 40px; margin: 10px 0;">00:00</h1>
 
@@ -57,7 +61,7 @@
             </ul>
         </div>
 
-        <div style="background-color: white; padding: 20px; border-radius: 8px; border: 1px solid #856404; flex: 1;">
+        <div style="background-color: #FFFFED; padding: 20px; border-radius: 8px; border: 1px solid #856404; flex: 1;">
             <h3 style="color: #856404;">📅 Upcoming Deadlines</h3>
             <form method="POST" style="margin-bottom: 15px;">
                 <input type="text" name="event_title" placeholder="Event (e.g. CPEN 55 Midterm)" required
