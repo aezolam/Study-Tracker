@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VerdaCore - Dashboard</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f7f6;">
+
+    <h1 style="color: #2d5a27;">Welcome to your Dashboard, {{ username }}!</h1>
+    <a href="/logout"
+        style="padding: 8px 15px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 5px;">Logout</a>
+    <hr style="margin-top: 20px; margin-bottom: 20px;">
+
+    <div style="display: flex; gap: 20px;">
+
+        <div style="background-color: white; padding: 20px; border-radius: 8px; border: 1px solid #ccc; flex: 1;">
+            <h3>📝 Create Note</h3>
+            <form method="POST">
+                <input type="text" name="note_title" placeholder="Title" required
+                    style="width: 90%; margin-bottom: 10px; padding: 8px;"><br>
+                <select name="note_type" required style="width: 95%; margin-bottom: 10px; padding: 8px;">
+                    <option value="Lecture">Lecture</option>
+                    <option value="Reminder">Reminder</option>
+                </select><br>
+                <textarea name="content" placeholder="Type here..." required
+                    style="width: 90%; height: 60px; margin-bottom: 10px; padding: 8px;"></textarea><br>
+                <button type="submit"
+                    style="padding: 8px 15px; background-color: #2d5a27; color: white; border: none; border-radius: 5px;">Save
+                    Note</button>
+            </form>
+        </div>
+
+        <div
+            style="background-color: white; padding: 20px; border-radius: 8px; border: 1px solid #0056b3; flex: 1; text-align: center;">
+            <h3 style="color: #0056b3;">⏱️ Focus Timer</h3>
+            <h1 id="display" style="font-size: 40px; margin: 10px 0;">00:00</h1>
+
+            <button onclick="startTimer()"
+                style="padding: 8px 15px; background-color: #28a745; color: white; border: none; border-radius: 5px;">Start</button>
+            <button onclick="stopTimer()"
+                style="padding: 8px 15px; background-color: #dc3545; color: white; border: none; border-radius: 5px;">Stop
+                & Save</button>
+
+            <form method="POST" id="timerForm" style="display: none;">
+                <input type="number" name="duration_minutes" id="durationInput">
+            </form>
+
+            <h4 style="margin-top: 15px; text-align: left;">Recent Sessions:</h4>
+            <ul style="text-align: left; max-height: 80px; overflow-y: auto; padding-left: 20px; margin-top: 5px;">
+                {% for session in sessions %}
+                <li>{{ session.duration_minutes }} min ({{ session.start_time.strftime('%b %d') }})</li>
+                {% else %}
+                <li style="color: gray; list-style: none;">No sessions yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div style="background-color: white; padding: 20px; border-radius: 8px; border: 1px solid #856404; flex: 1;">
+            <h3 style="color: #856404;">📅 Upcoming Deadlines</h3>
+            <form method="POST" style="margin-bottom: 15px;">
+                <input type="text" name="event_title" placeholder="Event (e.g. CPEN 55 Midterm)" required
+                    style="width: 90%; margin-bottom: 10px; padding: 8px;"><br>
+                <select name="event_type" required style="width: 95%; margin-bottom: 10px; padding: 8px;">
+                    <option value="Exam">Exam</option>
+                    <option value="Homework">Homework</option>
+                    <option value="Project">Project</option>
+                </select><br>
+                <input type="date" name="event_date" required
+                    style="width: 90%; margin-bottom: 10px; padding: 8px;"><br>
+                <button type="submit"
+                    style="padding: 8px 15px; background-color: #856404; color: white; border: none; border-radius: 5px;">Add
+                    Event</button>
+            </form>
+
+            <ul
+                style="text-align: left; max-height: 100px; overflow-y: auto; padding-left: 0; list-style: none; margin: 0;">
+                {% for event in events %}
+                <li
+                    style="background-color: #fff3cd; padding: 8px; border-radius: 4px; margin-bottom: 5px; font-size: 14px;">
+                    <strong>{{ event.event_date }}</strong>: {{ event.event_title }} <em>({{ event.event_type }})</em>
+                </li>
+                {% else %}
+                <li style="color: gray;">No upcoming events.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 30px;">Your Saved Notes:</h3>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+        {% for note in notes %}
+        <div
+            style="background-color: #e9ecef; padding: 15px; border-radius: 8px; border: 1px solid #ced4da; width: 250px;">
+            <h4 style="margin: 0; color: #343a40;">{{ note.note_title }}</h4>
+            <small style="color: gray;">Type: {{ note.note_type }}</small>
+            <p style="margin-top: 10px;">{{ note.content }}</p>
+        </div>
+        {% else %}
+        <p style="color: gray;">You haven't created any notes yet.</p>
+        {% endfor %}
+    </div>
+
+    <script>
+        let seconds = 0;
+        let timerInterval = null;
+
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                seconds++;
+                let mins = Math.floor(seconds / 60);
+                let secs = seconds % 60;
+                document.getElementById('display').innerText =
+                    (mins < 10 ? "0" + mins : mins) + ":" + (secs < 10 ? "0" + secs : secs);
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            let totalMinutes = Math.ceil(seconds / 60);
+
+            if (totalMinutes > 0) {
+                document.getElementById('durationInput').value = totalMinutes;
+                document.getElementById('timerForm').submit();
+            } else {
+                alert("You need to study for at least 1 minute to save!");
+                seconds = 0;
+                timerInterval = null;
+                document.getElementById('display').innerText = "00:00";
+            }
+        }
+    </script>
+</body>
+
+</html>
