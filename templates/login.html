@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+</style>
+
 <head>
     <meta charset="UTF-8">
     <title>VerdaCore - Login</title>
 </head>
 
-<body style="font-family: Arial, sans-serif; padding: 20px;">
-
-    <h2>Login to VerdaCore</h2>
+<body style="font-family: Lora, sans-serif; padding: 20px;">
+   <div style="background-color: #FFFFED; padding: 20px; text-align: center; border-radius: 2em;">
+         <img src="VerdaLogo.png" width=250 length=250 style="display: block; margin: 0 auto;">
+         
+            <h2 style="color: #5A9F4D;"> Login to VerdaCore</h2>
 
     <form method="POST">
         <label>Username:</label><br>
         <input type="text" name="username" required><br><br>
+        
+        <label>Cvsu Email:</label><br>
+        <input type="edu mail" name="cvsu email" required><br><br>
 
         <label>Password:</label><br>
         <input type="password" name="password" required><br><br>
 
         <button type="submit"
-            style="padding: 10px 20px; background-color: #0056b3; color: white; border: none; border-radius: 5px;">Login</button>
+            style="font-family: Lora; padding: 10px 20px; background-color: #254E06; color: white; border: none; border-radius: 5px;">Login</button>
     </form>
 
     <p>Don't have an account? <a href="/register">Register here</a></p>
-
+   </div>
 </body>
 
 </html>
